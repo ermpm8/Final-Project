@@ -35,6 +35,7 @@ class penguin
     bool move(sea& s);  
     void die();
 		short findWhale(sea& s);
+		short findFish(sea& s);
   private:
     short checkSurroundings(sea& s) const;
     short m_health;
@@ -43,6 +44,8 @@ class penguin
     bool m_alive;
     short m_avoid_x;
     short m_avoid_y;
+		short m_chase_x;
+		short m_chase_y;
 };
 
 
