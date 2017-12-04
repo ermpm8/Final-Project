@@ -63,18 +63,50 @@ short penguin::findWhale(sea& s)
   
   for (int i = 0; i<PENGUIN_SIGHT; i++)
   {
-    if (getActor(m_x+i, m_y+i+1)==WHALE) //NORTH check
+    if (s.getActor(m_x+i, m_y+i+1)==WHALE) //NORTH check
     {
       dist = i;
       m_avoid_x = m_x+i;
       m_avoid_y = m_y+i+1;
-    }
-    
-    
-    
+    }else if (s.getActor(m_x+i+1, m_y+i+1)==WHALE) //NORTHEAST check
+    {
+			dist=i;
+			m_avoid_x = m_x+i+1;
+			m_avoid_y = m_y+i+1;
+    }else if (s.getActor(m_x+i+1, m_y+i)==WHALE) //EAST check
+		{
+			dist=i;
+			m_avoid_x = m_x+i+1;
+			m_avoid_y = m_y+i;
+		}else if (s.getActor(m_x+i+1, m_y+i-1)==WHALE) //SOUTHEAST check
+		{
+			dist=i;
+			m_avoid_x = m_x+i+1;
+			m_avoid_y = m_y+i-1;
+		}else if (s.getActor(m_x+i, m_y+i-1)==WHALE) //SOUTH check
+		{
+			dist=i;
+			m_avoid_x = m_x+i;
+			m_avoid_y = m_y+i-1;
+		}else if (s.getActor(m_x+i-1, m_y+i-1)==WHALE) //SOUTHWEST check
+		{
+			dist=i;
+			m_avoid_x = m_x+i-1;
+			m_avoid_y = m_y+i-1;
+		}else if(s.getActor(m_x+i-1, m_y+i)==WHALE) //WEST check
+		{
+			dist=i;
+			m_avoid_x = m_x+i-1;
+			m_avoid_y = m_y+i+1;
+		}else if(s.getActor(m_x+i-1, m_y+i+1)==WHALE) //NORTWEST check
+		{
+			dist=i;
+			m_avoid_x = m_x+i-1;
+			m_avoid_y = m_y+i+1;
+		}
   }
   
   
   
-  return foundWhale;
+  return dist;
 }

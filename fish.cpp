@@ -23,14 +23,18 @@ bool fish::move(sea& s)
   
   if (!(s.isSurrounded(m_x,m_y))) 
   {
+		s.update(m_x, m_y, WHITESPACE);
     do
     {  
       x_dif = DIR[rand()%NUM_DIRS];
       y_dif = DIR[rand()%NUM_DIRS];
-    }while(x_dif != 0 && y_dif != 0);
-    s.update(m_x, m_y, WHITESPACE);
+			moved = (m_x+x_dif < SIM_SIZE);
+			moved = (m_y+y_dif < SIM_SIZE);
+    }while((x_dif != 0 && y_dif != 0) && (!(moved)));    		
     m_x +=x_dif;
     m_y +=y_dif;
+		
+		
     s.update(m_x, m_y, FISH);    
     moved = true;
   }else
