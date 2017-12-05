@@ -24,7 +24,7 @@ int main()
   sea the_sea(SIM_SIZE,fishes,penguins,whales);
   //declare the sea grid
   
-  //cout<<the_sea;
+  cout<<the_sea;
   //display the grid
   
   
