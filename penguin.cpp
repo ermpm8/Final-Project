@@ -21,6 +21,9 @@ bool penguin::move(sea& s)
   short y_dif;
   short move_cells;
   
+  bool run = false;
+  bool feed = false;
+  
   if(m_health>=TIER1)
   {
     move_cells = MOVE_TIER1;
@@ -43,7 +46,24 @@ bool penguin::move(sea& s)
   
   if (!(s.isSurrounded(m_x,m_y)))
   {
+    s.update(m_x, m_y, WHITESPACE);
     
+    
+    for (int i = 0; i< NUM_DIRS; i++)
+    {
+      for (int j = 0; j< NUM_DIRS; j++)
+      {
+        if (DIR[i] && DIR[j] !=0)
+        {
+          if (s.getActor(x+DIR[i],y+DIR[j] == ))
+          {
+            
+          }
+        }      
+      }
+    }
+  
+  
   }
  
 }
@@ -67,4 +87,9 @@ void penguin::setPos(const short x, const short y)
 bool penguin::isAlive() const
 {
   return m_alive; 
+}
+
+void checkSurroundings(sea& s)
+{
+  
 }

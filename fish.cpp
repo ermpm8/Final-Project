@@ -20,7 +20,6 @@ bool fish::move(sea& s)
   short x_dif;
   short y_dif;
 
-cout<<m_y<<","<<m_x<<endl;
   
   if (!(s.isSurrounded(m_x,m_y))) 
   {
@@ -29,8 +28,7 @@ cout<<m_y<<","<<m_x<<endl;
     {  
       x_dif = DIR[rand()%NUM_DIRS];
       y_dif = DIR[rand()%NUM_DIRS];
-			moved = s.validMove(m_x+x_dif,m_y+y_dif,s); 
-//cout<<"Valid move: "<<moved<<endl;      
+			moved = s.validMove(m_x+x_dif,m_y+y_dif,s);     
     }while((x_dif == 0 && y_dif == 0) || (!(moved)));    		
     m_x +=x_dif;
     m_y +=y_dif;
@@ -38,12 +36,10 @@ cout<<m_y<<","<<m_x<<endl;
     s.update(m_x, m_y, FISH);    
     moved = true;
     
-cout<<m_y<<","<<m_x<<endl;
   }else
   {
     moved = false;
   }
-cout<<"Moved:"<<moved<<endl;
   return moved;
 }
 
