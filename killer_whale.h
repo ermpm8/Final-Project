@@ -6,14 +6,20 @@
 #ifndef KILLER_WHALE_H
 #define KILLER_WHALE_H
 
+class sea;
 #include "sim.h"
 
 class killer_whale
 {
   public:
-    
+    killer_whale();
+		bool move(sea& s);
+		void setPos(const short x, const short y);
+		
   private:
-    
+    short m_kills;
+		short m_x;
+		short m_y;
 };
 
 

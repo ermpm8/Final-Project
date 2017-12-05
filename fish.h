@@ -22,6 +22,7 @@ class fish
     fish();
     bool move(sea& s);
     void setPos(const short x, const short y);
+    bool isAlive() const;
   private:
     short m_food;
     short m_x;

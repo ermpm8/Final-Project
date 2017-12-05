@@ -60,5 +60,11 @@ void penguin::setPos(const short x, const short y)
 {
   m_x = x;
   m_y = y;
+  m_alive = true;
   return;
+}
+
+bool penguin::isAlive() const
+{
+  return m_alive; 
 }

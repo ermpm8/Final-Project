@@ -34,10 +34,23 @@ int main()
   {
     for (int f = 0; f<NUM_FISH; f++)
     {
-      fishes[f].move(the_sea);			
+      if (fishes[f].isAlive())
+      {
+        fishes[f].move(the_sea);        
+      }     
     }		
+    for (int p = 0; p<NUM_PENG; p++)
+    {
+      if (penguins[p].isAlive())
+      {
+        penguins[p].move(the_sea);
+        
+      }
+      cout<<the_sea;
+    }
     usleep(200000);
-    cout<<the_sea;	
+    	
   }
+  
   return 0;
 }

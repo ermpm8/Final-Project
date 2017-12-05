@@ -27,6 +27,7 @@ class sea
     void update(const short x, const short y, const char actor);
     char getActor(const short x, const short y);
     short getSize() const {return m_size;}
+    bool validMove(const short x, const short y, sea& s) const;
   private:
     void clear();
     void populate(fish fishes[NUM_FISH], penguin penguins[NUM_PENG],
