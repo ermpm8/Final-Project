@@ -32,10 +32,6 @@ bool penguin::move(sea& s)
   
   char toMove;
   
-  
-  
-  
-  
   if(m_health>=TIER1)
   {
     move_cells = MOVE_TIER1;
@@ -93,17 +89,18 @@ cout<<"Space to move: ["<<toMove<<"]"<<endl;
       y_dif = (y_dif<0) ? POS : NEG;
       
       toMove = s.getActor(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells));
-cout<<"Space to move: ["<<toMove<<"]"<<endl;
+
       if (s.inBounds(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells))
       && (s.isEmpty(toMove) || toMove==FISH))
       {
+cout<<"Space to move: ["<<toMove<<"]"<<"\t"<<(m_y + (y_dif*move_cells))<<","<<(m_x + (x_dif*move_cells)) <<endl;
         m_x += (x_dif*move_cells);
         m_y += (y_dif*move_cells);
         moved = true;
       }
     }
-cout<<"Run : "<<m_run<<endl;    
-cout<<"Feed : "<<m_feed<<endl;    
+cout<<"Run : "<<m_whale_y<<","<<m_whale_x<<"\t"<<m_run<<endl;    
+cout<<"Feed : "<<m_fish_y<<","<<m_fish_x<<"\t"<<m_feed<<endl;    
 cout<<"Moved :"<<moved<<endl;    
   
   }
@@ -139,27 +136,7 @@ void penguin::checkSurroundings(sea& s)
   
   for (int k = 0; k<PENGUIN_SIGHT; k++)
   {
-    for (int i = 0; i< NUM_DIRS; i++)
-    {
-      for (int j = 0; j< NUM_DIRS; j++)
-      {
-        if (DIR[i] && DIR[j] !=0 && s.inBounds(m_x+DIR[i]*k,m_y+DIR[j]*k))
-        {
-          if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == WHALE))
-          {
-            m_run = true;
-            m_whale_x = m_x+DIR[i]*k;
-            m_whale_y = m_y+DIR[j]*k;
-          }
-          if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == FISH))
-          {
-            m_feed = true;
-            m_fish_x = m_x+DIR[i]*k;
-            m_fish_y = m_y+DIR[j]*k;
-          }         
-        }      
-      }
-    }
+    
   }    
   return;
 }
