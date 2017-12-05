@@ -3,7 +3,7 @@
 //File: killer_whale.cpp
 //Purpose: Implementation file for the killer_whale class
 
-#include "killer_whale"
+#include "killer_whale.h"
 #include "sea.h"
 
 killer_whale::killer_whale()
