@@ -104,32 +104,18 @@ bool sea::isEmpty(const char source) const
 
 bool sea::isSurrounded(const short x, const short y) const
 {
-  bool surr = false;
-  if(y==0 || !isEmpty(m_grid[x][y-1]) //NORTH check
-	{
-		surr=true;
-	}else if(x==m_size-1 || !isEmpty(m_grid[x+1][y]) //EAST check
-	{
-		surr=true;
-	}else if(y==m_size-1 || !isEmpty(m_grid[x][y+1]) //SOUTH check
-	{
-		surr=true;
-	}else if(y==m_size-1 || !isEmpty(m_grid[x][y-1]) //WEST check
-	{
-		surr=true;
-	}else if((y==0 && x==m_size-1) || !isEmpty(m_grid[x+1][y-1]) //NORTHEAST check
-	{
-		surr=true;
-	}else if((y==m_size-1 && x==m_size-1) || !isEmpty(m_grid[x+1][y+1]) //SOUTHEAST check
-	{
-		surr=true;
-	}else if((y==m_size-1 && x==0) || !isEmpty(m_grid[x-1][y+1]) //SOUTHWEST check
-	{
-		surr=true;
-	}else if((y==0 && x==0) || !isEmpty(m_grid[x][y-1]) //NORTHWEST check
-	{
-		surr=true;
-	}
+  bool surr = true;
+  
+  for (int i = 0; i< NUM_DIRS; i++)
+  {
+    for (int j = 0; j< NUM_DIRS; j++)
+    {
+      if (isEmpty(m_grid[x+i][y+j]))
+      {
+        surr= false;
+      }
+    }
+  }
   return surr;  
 }
 

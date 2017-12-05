@@ -41,8 +41,8 @@ bool penguin::move(sea& s)
     move_cells = MOVE_TIER6;
   }
   
-	findWhale(s);
-	findFish(s);
+	//findWhale(s);
+	//findFish(s);
   
   if (!(s.isSurrounded(m_x,m_y)))
   {
