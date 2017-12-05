@@ -25,6 +25,8 @@ const short MOVE_TIER4 = 2;
 const short MOVE_TIER5 = 1;
 const short MOVE_TIER6 = 0;
 
+
+
 const short PENGUIN_SIGHT = 8;
 
 
@@ -38,11 +40,17 @@ class penguin
     bool isAlive() const;
     
   private:
-    short checkSurroundings(sea& s);
+    void checkSurroundings(sea& s);
     short m_health;
     short m_x;
     short m_y;
     bool m_alive;
+    short m_whale_x;
+    short m_whale_y;
+    short m_fish_x;
+    short m_fish_y;
+    bool m_run;
+    bool m_feed;
 };
 
 

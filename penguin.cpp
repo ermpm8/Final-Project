@@ -12,6 +12,15 @@ penguin::penguin()
   m_x = DEAD_POS;
   m_y = DEAD_POS;
   m_alive = false;
+  m_whale_x = DEAD_POS;
+  m_whale_y = DEAD_POS;
+  m_fish_x = DEAD_POS;
+  m_fish_y = DEAD_POS;
+  
+  m_run = false;
+  m_feed = false;
+  
+  
 }
 
 bool penguin::move(sea& s)
@@ -21,14 +30,10 @@ bool penguin::move(sea& s)
   short y_dif;
   short move_cells;
   
-  short near_whale_x;
-  short near_whale_y;
+  char toMove;
   
-  short near_fish_x;
-  short near_fish_y;
   
-  bool run = false;
-  bool feed = false;
+  
   
   
   if(m_health>=TIER1)
@@ -54,45 +59,56 @@ bool penguin::move(sea& s)
   if (!(s.isSurrounded(m_x,m_y)))
   {
     s.update(m_x, m_y, WHITESPACE);
-    
-    for (int k = 0; k<PENGUIN_SIGHT; k++)
+    checkSurroundings(s);
+cout<<"Start : ("<<m_y<<","<<m_x<<")"<<endl;    
+    if (m_run)
     {
-      for (int i = 0; i< NUM_DIRS; i++)
+      x_dif = m_x - m_whale_x;
+      x_dif = (x_dif<0) ? NEG : POS;
+      
+      y_dif = m_y - m_whale_y;
+      y_dif = (y_dif<0) ? NEG : POS;
+      
+      toMove = s.getActor(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells));
+cout<<"Space to move: ["<<toMove<<"]"<<endl;      
+      
+      if (s.inBounds(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells))
+      && (s.isEmpty(toMove) || toMove==FISH))
       {
-        for (int j = 0; j< NUM_DIRS; j++)
-        {
-          if (DIR[i] && DIR[j] !=0 && s.inBounds(m_x+DIR[i]*k,m_y+DIR[j]*k))
-          {
-            if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == WHALE))
-            {
-              run = true;
-              near_whale_x = m_x+DIR[i]*k;
-              near_whale_y = m_y+DIR[j]*k;
-            }
-            if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == FISH))
-            {
-              feed = true;
-              near_fish_x = m_x+DIR[i]*k;
-              near_fish_y = m_y+DIR[j]*k;
-            }         
-          }      
-        }
+        m_x += (x_dif*move_cells);
+        m_y += (y_dif*move_cells);
+        moved = true;
+      }else if(s.inBounds(m_x + (x_dif*move_cells), m_y)
+      && (s.isEmpty(toMove) || toMove==FISH))
+      {
+        m_x += (x_dif*move_cells);
+        moved = true;
+      }
+    } else if (m_feed)
+    {
+      x_dif = m_x - m_fish_x;
+      x_dif = (x_dif<0) ? POS : NEG;
+      
+      y_dif = m_y - m_whale_y;
+      y_dif = (y_dif<0) ? POS : NEG;
+      
+      toMove = s.getActor(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells));
+cout<<"Space to move: ["<<toMove<<"]"<<endl;
+      if (s.inBounds(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells))
+      && (s.isEmpty(toMove) || toMove==FISH))
+      {
+        m_x += (x_dif*move_cells);
+        m_y += (y_dif*move_cells);
+        moved = true;
       }
     }
-    
-    
-    if (run && feed)
-    {
-      
-    }
-    
-    
-    
-    
-  
+cout<<"Run : "<<m_run<<endl;    
+cout<<"Feed : "<<m_feed<<endl;    
+cout<<"Moved :"<<moved<<endl;    
   
   }
- 
+  s.update(m_x, m_y, PENG);
+cout<<"End : ("<<m_y<<","<<m_x<<")"<<endl;
 }
 
 void penguin::die()
@@ -116,7 +132,34 @@ bool penguin::isAlive() const
   return m_alive; 
 }
 
-void checkSurroundings(sea& s)
+void penguin::checkSurroundings(sea& s)
 {
+  m_feed = false;
+  m_run = false;
   
+  for (int k = 0; k<PENGUIN_SIGHT; k++)
+  {
+    for (int i = 0; i< NUM_DIRS; i++)
+    {
+      for (int j = 0; j< NUM_DIRS; j++)
+      {
+        if (DIR[i] && DIR[j] !=0 && s.inBounds(m_x+DIR[i]*k,m_y+DIR[j]*k))
+        {
+          if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == WHALE))
+          {
+            m_run = true;
+            m_whale_x = m_x+DIR[i]*k;
+            m_whale_y = m_y+DIR[j]*k;
+          }
+          if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == FISH))
+          {
+            m_feed = true;
+            m_fish_x = m_x+DIR[i]*k;
+            m_fish_y = m_y+DIR[j]*k;
+          }         
+        }      
+      }
+    }
+  }    
+  return;
 }

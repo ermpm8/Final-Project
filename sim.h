@@ -63,6 +63,9 @@ const short DIR[NUM_DIRS] = {-1,0,0,1};
 
 
 
+const short NEG = -1;
+const short POS = 1;
+
 
 const short DEAD_POS = -1;
 //position of dead actors
