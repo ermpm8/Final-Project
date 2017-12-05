@@ -1,4 +1,4 @@
-//Programmer: Evan Maynard        Date: 11/26/2017
+//Programmer: Evan Maynard and Justin Palermo        Date: 11/29/2017
 //Class: CS1570                   Section: B
 //File: penguin.cpp
 //Purpose: Implementation file for the penguin class.
@@ -41,6 +41,8 @@ bool penguin::move(sea& s)
     move_cells = MOVE_TIER6;
   }
   
+	findWhale(s);
+	findFish(s);
   
   if (!(s.isSurrounded(m_x,m_y)))
   {
@@ -60,51 +62,61 @@ void penguin::die()
 short penguin::findWhale(sea& s)
 {
   short dist = -1;
-  
-  for (int i = 0; i<PENGUIN_SIGHT; i++)
+	bool foundWhale = false;
+  int i = 0;
+  do
   {
     if (s.getActor(m_x+i, m_y+i+1)==WHALE) //NORTH check
     {
       dist = i;
       m_avoid_x = m_x+i;
       m_avoid_y = m_y+i+1;
+			foundWhale = true;
     }else if (s.getActor(m_x+i+1, m_y+i+1)==WHALE) //NORTHEAST check
     {
 			dist=i;
 			m_avoid_x = m_x+i+1;
 			m_avoid_y = m_y+i+1;
+			foundWhale = true;
     }else if (s.getActor(m_x+i+1, m_y+i)==WHALE) //EAST check
 		{
 			dist=i;
 			m_avoid_x = m_x+i+1;
 			m_avoid_y = m_y+i;
+			foundWhale = true;
 		}else if (s.getActor(m_x+i+1, m_y+i-1)==WHALE) //SOUTHEAST check
 		{
 			dist=i;
 			m_avoid_x = m_x+i+1;
 			m_avoid_y = m_y+i-1;
+			foundWhale = true;
 		}else if (s.getActor(m_x+i, m_y+i-1)==WHALE) //SOUTH check
 		{
 			dist=i;
 			m_avoid_x = m_x+i;
 			m_avoid_y = m_y+i-1;
+			foundWhale = true;
 		}else if (s.getActor(m_x+i-1, m_y+i-1)==WHALE) //SOUTHWEST check
 		{
 			dist=i;
 			m_avoid_x = m_x+i-1;
 			m_avoid_y = m_y+i-1;
+			foundWhale = true;
 		}else if(s.getActor(m_x+i-1, m_y+i)==WHALE) //WEST check
 		{
 			dist=i;
 			m_avoid_x = m_x+i-1;
 			m_avoid_y = m_y+i+1;
+			foundWhale = true;
 		}else if(s.getActor(m_x+i-1, m_y+i+1)==WHALE) //NORTWEST check
 		{
 			dist=i;
 			m_avoid_x = m_x+i-1;
 			m_avoid_y = m_y+i+1;
+			foundWhale = true;
 		}
-  }
+		i++;
+  }while(i < PENGUIN_SIGHT || foundWhale);
   
   
   cout<<"("<<m_avoid_y<<","<<m_avoid_x<<")"<<endl;
@@ -113,52 +125,62 @@ short penguin::findWhale(sea& s)
 
 short penguin::findFish(sea& s)
 {
+	bool foundFish = false;
 	short dist=-1;
-	
-	for (int i = 0; i<PENGUIN_SIGHT; i++)
+	int i = 0;
+	do
 	{
 		if (s.getActor(m_x+i, m_y+i+1)==FISH) //NORTH check
 		{
 			dist=i;
 			m_chase_x = m_x+i;
 			m_chase_y = m_y+i+1;
+			foundFish = true;
 		}else if (s.getActor(m_x+i+1, m_y+i+1)==FISH) //NORTHEAST check
 		{
 			dist=i;
 			m_chase_x = m_x+i+1;
 			m_chase_y = m_y+i+1;
+			foundFish = true;
 		}else if (s.getActor(m_x+i+1, m_y+i)==FISH) //EAST check
 		{
 			dist=i;
 			m_chase_x = m_x+i+1;
 			m_chase_y = m_y+i;
+			foundFish = true;
 	  }else if (s.getActor(m_x+i+1, m_y+i-1)==FISH) //SOUTHEAST check
 		{
 			dist=i;
 			m_chase_x = m_x+i+1;
 		  m_chase_y = m_y+i-1;
+			foundFish = true;
 		}else if (s.getActor(m_x+i, m_y+i-1)==FISH)  //SOUTH check
 		{
 			dist=i;
 			m_chase_x = m_x+i;
 			m_chase_y = m_y+i-1;
+			foundFish = true;
 		}else if (s.getActor(m_x+i-1, m_y+i-1)==FISH) //SOUTHWEST check
 		{
 			dist=i;
 			m_chase_x = m_x+i-1;
 			m_chase_y = m_y+i-1;
+			foundFish = true;
 		}else if (s.getActor(m_x+i-1, m_y+i)==FISH) //WEST check
 		{
 			dist=i;
 			m_chase_x = m_x+i-1;
 			m_chase_y = m_y+i;
+			foundFish = true;
 		}else if (s.getActor(m_x+i-1, m_y+i+1)==FISH) //NORTHWEST check
 		{
 			dist=i;
 			m_chase_x = m_x+i-1;
 			m_chase_y = m_y+i+1;
+			foundFish = true;
 		}
-	}
+		i++;
+	}while(i<PENGUIN_SIGHT || foundFish);
 	cout<<"("<<m_chase_y<<","<<m_chase_x<<")"<<endl;
   return dist;
 }

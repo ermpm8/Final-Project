@@ -1,4 +1,4 @@
-//Programmer: Evan Maynard        Date: 11/26/2017
+//Programmer: Evan Maynard and Justin Palermo        Date: 11/29/2017
 //Class: CS1570                   Section: B
 //File: sea.cpp
 //Purpose: Implementation file for the sea class.
@@ -127,5 +127,5 @@ void sea::update(const short x, const short y, const char actor)
 
 char sea::getActor(const short x, const short y)
 {
-  return m_grid[x][y];  
+  return ((x && y)<m_size)? m_grid[x][y] : WHITESPACE;  
 }

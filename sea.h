@@ -1,4 +1,4 @@
-//Programmer: Evan Maynard        Date: 11/26/2017
+//Programmer: Evan Maynard and Justin Palermo        Date: 11/29/2017
 //Class: CS1570                   Section: B
 //File: sea.h
 //Purpose: Header file for the sea class.

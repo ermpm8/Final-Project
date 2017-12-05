@@ -1,4 +1,4 @@
-//Programmer: Evan Maynard        Date: 11/29/2017
+//Programmer: Evan Maynard and Justin Palermo        Date: 11/29/2017
 //Class: CS1570                   Section: B
 //File: sim.cpp
 //Purpose: To demonstrate the functionality of the classes previously created
@@ -24,7 +24,7 @@ int main()
   sea the_sea(SIM_SIZE,fishes,penguins,whales);
   //declare the sea grid
   
-  cout<<the_sea;
+  //cout<<the_sea;
   //display the grid
   
   
@@ -34,10 +34,14 @@ int main()
   {
     for (int f = 0; f<NUM_FISH; f++)
     {
-      fishes[f].move(the_sea);
+      fishes[f].move(the_sea);			
     }
+		for (int p = 0; p<NUM_PENG; p++)
+		{
+			penguins[p].move(the_sea);
+		}
     usleep(200000);
-    cout<<the_sea;	
+    //cout<<the_sea;	
   }
   return 0;
 }
