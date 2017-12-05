@@ -27,6 +27,7 @@ int main()
   cout<<the_sea;
   //display the grid
   
+  //fishes[0].move(the_sea);
   
   
   
@@ -34,10 +35,15 @@ int main()
   {
     for (int f = 0; f<NUM_FISH; f++)
     {
-      fishes[f].move(the_sea);			
+      if (fishes[f].isAlive())
+      {
+        fishes[f].move(the_sea);
+        cout<<the_sea;  
+      }     
     }		
     usleep(200000);
-    cout<<the_sea;	
+    	
   }
+  
   return 0;
 }

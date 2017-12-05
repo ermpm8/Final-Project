@@ -91,7 +91,7 @@ ostream& operator << (ostream& os, const sea& s)
 
 void sea::setSize(const short size)
 {
-  m_size = (size>MIN_SIZE) ? size : MIN_SIZE;
+  m_size = (size>MIN_SIZE && size<=MAX) ? size : MAX;
   return;
 }
 
@@ -110,10 +110,13 @@ bool sea::isSurrounded(const short x, const short y) const
   {
     for (int j = 0; j< NUM_DIRS; j++)
     {
-      if (isEmpty(m_grid[x+i][y+j]))
+      if (DIR[i] && DIR[j] !=0)
       {
-        surr= false;
-      }
+        if (isEmpty(m_grid[x+DIR[i]][y+DIR[j]]))
+        {
+          surr= false;
+        }
+      }      
     }
   }
   return surr;  
@@ -128,4 +131,11 @@ void sea::update(const short x, const short y, const char actor)
 char sea::getActor(const short x, const short y)
 {
   return m_grid[x][y];  
+}
+
+bool sea::validMove(const short x, const short y, sea& s) const
+{
+  bool valid = false;
+  valid = (x>0 && x<m_size)&&(y>0 && y<m_size) && s.isEmpty(s.getActor(x,y));
+  return valid;  
 }
