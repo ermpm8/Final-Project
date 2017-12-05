@@ -23,20 +23,6 @@ const char SIDE = '|';
 const char WHITESPACE = ' ';
 //Represents the char for blank spaces in the grid
 
-const short NOT_ON_EDGE = 0;
-const short N = 1;
-const short NE = 2;
-const short E = 3;
-const short SE = 4;
-const short S = 5;
-const short SW = 6;
-const short W = 7;
-const short NW = 8;
-
-
-
-
-
 
 /*---Actor Char Constants---*/
 const char FISH = 'F';

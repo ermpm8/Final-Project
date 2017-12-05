@@ -98,7 +98,7 @@ void sea::setSize(const short size)
 bool sea::isEmpty(const char source) const
 {
   bool empty = false;
-  empty = (source==' ');
+  empty = (source==WHITESPACE);
   return empty;
 }
 
@@ -129,35 +129,3 @@ char sea::getActor(const short x, const short y)
 {
   return m_grid[x][y];  
 }
-/*
-short sea::onEdge(const short x, const short y) const
-{
-  short edge = NOT_ON_EDGE;
-  if (x==0 && y==0)
-  {
-    edge = NW;
-  }else if (x==0 && y==m_size-1)
-  {
-    edge = SW;
-  }else if (x==m_size-1 && y==0)
-  {
-    edge = NE;
-  }else if (x==m_size-1 && y==m_size-1)
-  {
-    edge = SE;
-  }else if (x==0 && y!=0)
-  {
-    edge = W;
-  }else if (x==m_size-1 && y!=0)
-  {
-    edge = E;
-  }else if (x!=0 && y==0)
-  {
-    edge = N;
-  }else if (x!=0 && y==m_size-1)
-  {
-    edge = S;
-  }
-   return edge;  
-}
-*/

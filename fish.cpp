@@ -28,8 +28,15 @@ bool fish::move(sea& s)
     {  
       x_dif = DIR[rand()%NUM_DIRS];
       y_dif = DIR[rand()%NUM_DIRS];
-			moved = (m_x+x_dif < SIM_SIZE);
-			moved = (m_y+y_dif < SIM_SIZE);
+			if (m_x+x_dif < SIM_SIZE && m_x+x_dif > 0 && m_y+y_dif < SIM_SIZE &&
+          m_y+y_dif > 0)
+      {
+        moved = true;
+      }else
+      {
+        moved = false;
+      }
+     
     }while((x_dif != 0 && y_dif != 0) && (!(moved)));    		
     m_x +=x_dif;
     m_y +=y_dif;

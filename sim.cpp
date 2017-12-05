@@ -24,7 +24,7 @@ int main()
   sea the_sea(SIM_SIZE,fishes,penguins,whales);
   //declare the sea grid
   
-  //cout<<the_sea;
+  cout<<the_sea;
   //display the grid
   
   
@@ -35,13 +35,9 @@ int main()
     for (int f = 0; f<NUM_FISH; f++)
     {
       fishes[f].move(the_sea);			
-    }
-		for (int p = 0; p<NUM_PENG; p++)
-		{
-			penguins[p].move(the_sea);
-		}
+    }		
     usleep(200000);
-    //cout<<the_sea;	
+    cout<<the_sea;	
   }
   return 0;
 }
