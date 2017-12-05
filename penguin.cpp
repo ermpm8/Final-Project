@@ -107,7 +107,7 @@ short penguin::findWhale(sea& s)
   }
   
   
-  
+  cout<<"("<<m_avoid_y<<","<<m_avoid_x<<")"<<endl;
   return dist;
 }
 
@@ -159,6 +159,13 @@ short penguin::findFish(sea& s)
 			m_chase_y = m_y+i+1;
 		}
 	}
-	
+	cout<<"("<<m_chase_y<<","<<m_chase_x<<")"<<endl;
   return dist;
+}
+
+void penguin::setPos(const short x, const short y)
+{
+  m_x = x;
+  m_y = y;
+  return;
 }

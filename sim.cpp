@@ -37,8 +37,7 @@ int main()
       fishes[f].move(the_sea);
     }
     usleep(200000);
-    cout<<the_sea;
+    cout<<the_sea;	
   }
-  
   return 0;
 }

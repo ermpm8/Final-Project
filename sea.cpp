@@ -49,10 +49,8 @@ void sea::populate(fish fishes[NUM_FISH], penguin penguins[NUM_PENG],
       rand_y = rand() % m_size;    
     }while(!(isEmpty(m_grid[rand_x][rand_y])));
       m_grid[rand_x][rand_y] = PENG;
-      //penguins[i].m_x = rand_x;
-      //penguins[i].m_y = rand_y;
+      penguins[i].setPos(rand_x, rand_y);
   }
-  
   for (int i = 0; i<NUM_WHALE; i++)
   {
     do
