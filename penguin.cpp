@@ -21,6 +21,12 @@ bool penguin::move(sea& s)
   short y_dif;
   short move_cells;
   
+  short near_whale_x;
+  short near_whale_y;
+  
+  short near_fish_x;
+  short near_fish_y;
+  
   bool run = false;
   bool feed = false;
   
@@ -49,20 +55,40 @@ bool penguin::move(sea& s)
   {
     s.update(m_x, m_y, WHITESPACE);
     
-    
-    for (int i = 0; i< NUM_DIRS; i++)
+    for (int k = 0; k<PENGUIN_SIGHT; k++)
     {
-      for (int j = 0; j< NUM_DIRS; j++)
+      for (int i = 0; i< NUM_DIRS; i++)
       {
-        if (DIR[i] && DIR[j] !=0)
+        for (int j = 0; j< NUM_DIRS; j++)
         {
-          if (s.getActor(m_x+DIR[i],m_y+DIR[j] == WHALE))
+          if (DIR[i] && DIR[j] !=0 && s.inBounds(m_x+DIR[i]*k,m_y+DIR[j]*k))
           {
-            
-          }
-        }      
+            if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == WHALE))
+            {
+              run = true;
+              near_whale_x = m_x+DIR[i]*k;
+              near_whale_y = m_y+DIR[j]*k;
+            }
+            if (s.getActor(m_x+DIR[i]*k,m_y+DIR[j]*k == FISH))
+            {
+              feed = true;
+              near_fish_x = m_x+DIR[i]*k;
+              near_fish_y = m_y+DIR[j]*k;
+            }         
+          }      
+        }
       }
     }
+    
+    
+    if (run && feed)
+    {
+      
+    }
+    
+    
+    
+    
   
   
   }

@@ -36,6 +36,7 @@ class penguin
     void die();		
 		void setPos(const short x, const short y);
     bool isAlive() const;
+    
   private:
     short checkSurroundings(sea& s);
     short m_health;

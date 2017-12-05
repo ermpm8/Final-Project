@@ -136,6 +136,13 @@ char sea::getActor(const short x, const short y)
 bool sea::validMove(const short x, const short y, sea& s) const
 {
   bool valid = false;
-  valid = (x>0 && x<m_size)&&(y>0 && y<m_size) && s.isEmpty(s.getActor(x,y));
+  valid = inBounds(x,y) && s.isEmpty(s.getActor(x,y));
   return valid;  
+}
+
+bool sea::inBounds(const short x, const short y) const
+{
+  bool inBounds = false;
+  inBounds = (x>0 && x<m_size)&&(y>0 && y<m_size);
+  return inBounds;
 }
