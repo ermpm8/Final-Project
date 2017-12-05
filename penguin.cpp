@@ -134,9 +134,24 @@ void penguin::checkSurroundings(sea& s)
   m_feed = false;
   m_run = false;
   
-  for (int k = 0; k<PENGUIN_SIGHT; k++)
+  for (int k = 1; k<=PENGUIN_SIGHT; k++)
   {
+    //North
+    s.getActor(m_x,m_y+k)
     
+    //Northeast
+    
+    //East
+    
+    //Southeast
+    
+    //South
+    
+    //Southwest
+    
+    //West
+    
+    //Northwest
   }    
   return;
 }

@@ -146,3 +146,4 @@ bool sea::inBounds(const short x, const short y) const
   inBounds = (x>0 && x<m_size)&&(y>0 && y<m_size);
   return inBounds;
 }
+
