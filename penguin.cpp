@@ -63,58 +63,98 @@ short penguin::findWhale(sea& s)
 {
   short dist = -1;
 	bool foundWhale = false;
-  int i = 0;
+  int i = 1;
+  
   do
   {
-    if (s.getActor(m_x+i, m_y+i+1)==WHALE) //NORTH check
+    if (m_y-i < 0)  //NORTH check
     {
-      dist = i;
-      m_avoid_x = m_x+i;
-      m_avoid_y = m_y+i+1;
-			foundWhale = true;
-    }else if (s.getActor(m_x+i+1, m_y+i+1)==WHALE) //NORTHEAST check
+      if (s.getActor(m_x, m_y-i)==WHALE) 
+      {
+        dist = i;
+        m_avoid_x = m_x;
+        m_avoid_y = m_y-i;
+        foundWhale = true;
+      }
+    }
+    
+    if (m_x+i <s.getSize() && m_y-i <s.getSize())  //NORTHEAST check
     {
-			dist=i;
-			m_avoid_x = m_x+i+1;
-			m_avoid_y = m_y+i+1;
-			foundWhale = true;
-    }else if (s.getActor(m_x+i+1, m_y+i)==WHALE) //EAST check
-		{
-			dist=i;
-			m_avoid_x = m_x+i+1;
-			m_avoid_y = m_y+i;
-			foundWhale = true;
-		}else if (s.getActor(m_x+i+1, m_y+i-1)==WHALE) //SOUTHEAST check
-		{
-			dist=i;
-			m_avoid_x = m_x+i+1;
-			m_avoid_y = m_y+i-1;
-			foundWhale = true;
-		}else if (s.getActor(m_x+i, m_y+i-1)==WHALE) //SOUTH check
-		{
-			dist=i;
-			m_avoid_x = m_x+i;
-			m_avoid_y = m_y+i-1;
-			foundWhale = true;
-		}else if (s.getActor(m_x+i-1, m_y+i-1)==WHALE) //SOUTHWEST check
-		{
-			dist=i;
-			m_avoid_x = m_x+i-1;
-			m_avoid_y = m_y+i-1;
-			foundWhale = true;
-		}else if(s.getActor(m_x+i-1, m_y+i)==WHALE) //WEST check
-		{
-			dist=i;
-			m_avoid_x = m_x+i-1;
-			m_avoid_y = m_y+i+1;
-			foundWhale = true;
-		}else if(s.getActor(m_x+i-1, m_y+i+1)==WHALE) //NORTWEST check
-		{
-			dist=i;
-			m_avoid_x = m_x+i-1;
-			m_avoid_y = m_y+i+1;
-			foundWhale = true;
-		}
+      if (s.getActor(m_x+i, m_y-i)==WHALE) 
+      {
+        dist=i;
+        m_avoid_x = m_x+i;
+        m_avoid_y = m_y-i;
+        foundWhale = true;
+      }
+    }
+    
+    if (m_x+i <s.getSize())  //EAST check
+    {
+      if (s.getActor(m_x+i, m_y)==WHALE) 
+      {
+        dist=i;
+        m_avoid_x = m_x+i;
+        m_avoid_y = m_y;
+        foundWhale = true;
+      }
+    }
+    
+    if (m_x+i < s.getSize() && m_y+i<s.getSize())
+    {
+        if (s.getActor(m_x+i, m_y+i)==WHALE) //SOUTHEAST check
+      {
+        dist=i;
+        m_avoid_x = m_x+i;
+        m_avoid_y = m_y+i;
+        foundWhale = true;
+      }
+    }   
+    
+    if (m_y-i <s.getSize())
+    {
+      if (s.getActor(m_x, m_y-i)==WHALE) //SOUTH check
+      {
+        dist=i;
+        m_avoid_x = m_x;
+        m_avoid_y = m_y-i;
+        foundWhale = true;
+      }
+    }
+		
+		if (m_x-i > 0 && m_y+i <s.getSize())
+    {
+      if (s.getActor(m_x-i, m_y+i)==WHALE) //SOUTHWEST check
+      {
+        dist=i;
+        m_avoid_x = m_x-i;
+        m_avoid_y = m_y+i;
+        foundWhale = true;
+      }      
+    }
+    
+    if (m_x-i > 0)
+    {
+      if (s.getActor(m_x-i, m_y)==WHALE) //WEST check
+      {
+        dist=i;
+        m_avoid_x = m_x-i;
+        m_avoid_y = m_y;
+        foundWhale = true;
+      }
+    }
+    
+    if (m_x-i > 0 && m_y-i > 0)
+    {
+      if (s.getActor(m_x-i, m_y-i)==WHALE) //NORTWEST check
+      {
+        dist=i;
+        m_avoid_x = m_x-i;
+        m_avoid_y = m_y-i;
+        foundWhale = true;
+      }
+    }
+        
 		i++;
   }while(i < PENGUIN_SIGHT || foundWhale);
   
@@ -127,61 +167,99 @@ short penguin::findFish(sea& s)
 {
 	bool foundFish = false;
 	short dist=-1;
-	int i = 0;
-	do
-	{
-		if (s.getActor(m_x+i, m_y+i+1)==FISH) //NORTH check
-		{
-			dist=i;
-			m_chase_x = m_x+i;
-			m_chase_y = m_y+i+1;
-			foundFish = true;
-		}else if (s.getActor(m_x+i+1, m_y+i+1)==FISH) //NORTHEAST check
-		{
-			dist=i;
-			m_chase_x = m_x+i+1;
-			m_chase_y = m_y+i+1;
-			foundFish = true;
-		}else if (s.getActor(m_x+i+1, m_y+i)==FISH) //EAST check
-		{
-			dist=i;
-			m_chase_x = m_x+i+1;
-			m_chase_y = m_y+i;
-			foundFish = true;
-	  }else if (s.getActor(m_x+i+1, m_y+i-1)==FISH) //SOUTHEAST check
-		{
-			dist=i;
-			m_chase_x = m_x+i+1;
-		  m_chase_y = m_y+i-1;
-			foundFish = true;
-		}else if (s.getActor(m_x+i, m_y+i-1)==FISH)  //SOUTH check
-		{
-			dist=i;
-			m_chase_x = m_x+i;
-			m_chase_y = m_y+i-1;
-			foundFish = true;
-		}else if (s.getActor(m_x+i-1, m_y+i-1)==FISH) //SOUTHWEST check
-		{
-			dist=i;
-			m_chase_x = m_x+i-1;
-			m_chase_y = m_y+i-1;
-			foundFish = true;
-		}else if (s.getActor(m_x+i-1, m_y+i)==FISH) //WEST check
-		{
-			dist=i;
-			m_chase_x = m_x+i-1;
-			m_chase_y = m_y+i;
-			foundFish = true;
-		}else if (s.getActor(m_x+i-1, m_y+i+1)==FISH) //NORTHWEST check
-		{
-			dist=i;
-			m_chase_x = m_x+i-1;
-			m_chase_y = m_y+i+1;
-			foundFish = true;
-		}
+	int i = 1;
+	 do
+  {
+    if (m_y-i < 0)  //NORTH check
+    {
+      if (s.getActor(m_x, m_y-i)==FISH) 
+      {
+        dist = i;
+        m_chase_x = m_x;
+        m_chase_y = m_y-i;
+        foundFish = true;
+      }
+    }
+    
+    if (m_x+i <s.getSize() && m_y-i <s.getSize())  //NORTHEAST check
+    {
+      if (s.getActor(m_x+i, m_y-i)==FISH) 
+      {
+        dist=i;
+        m_chase_x = m_x+i;
+        m_chase_y = m_y-i;
+        foundFish = true;
+      }
+    }
+    
+    if (m_x+i <s.getSize())  //EAST check
+    {
+      if (s.getActor(m_x+i, m_y)==FISH) 
+      {
+        dist=i;
+        m_chase_x = m_x+i;
+        m_chase_y = m_y;
+        foundFish = true;
+      }
+    }
+    
+    if (m_x+i < s.getSize() && m_y+i<s.getSize())
+    {
+        if (s.getActor(m_x+i, m_y+i)==FISH) //SOUTHEAST check
+      {
+        dist=i;
+        m_chase_x = m_x+i;
+        m_chase_y = m_y+i;
+        foundFish = true;
+      }
+    }   
+    
+    if (m_y-i <s.getSize())
+    {
+      if (s.getActor(m_x, m_y-i)==FISH) //SOUTH check
+      {
+        dist=i;
+        m_chase_x = m_x;
+        m_chase_y = m_y-i;
+        foundFish = true;
+      }
+    }
+		
+		if (m_x-i > 0 && m_y+i <s.getSize())
+    {
+      if (s.getActor(m_x-i, m_y+i)==FISH) //SOUTHWEST check
+      {
+        dist=i;
+        m_chase_x = m_x-i;
+        m_chase_y = m_y+i;
+        foundFish = true;
+      }      
+    }
+    
+    if (m_x-i > 0)
+    {
+      if (s.getActor(m_x-i, m_y)==FISH) //WEST check
+      {
+        dist=i;
+        m_chase_x = m_x-i;
+        m_chase_y = m_y;
+        foundFish = true;
+      }
+    }
+    
+    if (m_x-i > 0 && m_y-i > 0)
+    {
+      if (s.getActor(m_x-i, m_y-i)==FISH) //NORTWEST check
+      {
+        dist=i;
+        m_chase_x = m_x-i;
+        m_chase_y = m_y-i;
+        foundFish = true;
+      }
+    }
 		i++;
-	}while(i<PENGUIN_SIGHT || foundFish);
-	cout<<"("<<m_chase_y<<","<<m_chase_x<<")"<<endl;
+  }while(i < PENGUIN_SIGHT || foundFish);
+	cout<<"("<<m_chase_x<<","<<m_chase_y<<")"<<endl;
   return dist;
 }
 
