@@ -127,5 +127,5 @@ void sea::update(const short x, const short y, const char actor)
 
 char sea::getActor(const short x, const short y)
 {
-  return ((x && y)<m_size)? m_grid[x][y] : WHITESPACE;  
+  return m_grid[x][y];  
 }
