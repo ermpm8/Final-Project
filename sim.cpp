@@ -27,7 +27,6 @@ int main()
   cout<<the_sea;
   //display the grid
   
-  //fishes[0].move(the_sea);
   
   
   
@@ -37,10 +36,18 @@ int main()
     {
       if (fishes[f].isAlive())
       {
-        fishes[f].move(the_sea);
-        cout<<the_sea;  
+        fishes[f].move(the_sea);        
       }     
     }		
+    for (int p = 0; p<NUM_PENG; p++)
+    {
+      if (penguins[p].isAlive())
+      {
+        penguins[p].move(the_sea);
+        
+      }
+      cout<<the_sea;
+    }
     usleep(200000);
     	
   }
