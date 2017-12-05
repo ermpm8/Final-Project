@@ -24,6 +24,7 @@ bool penguin::move(sea& s)
   bool run = false;
   bool feed = false;
   
+  
   if(m_health>=TIER1)
   {
     move_cells = MOVE_TIER1;
@@ -55,7 +56,7 @@ bool penguin::move(sea& s)
       {
         if (DIR[i] && DIR[j] !=0)
         {
-          if (s.getActor(x+DIR[i],y+DIR[j] == ))
+          if (s.getActor(m_x+DIR[i],m_y+DIR[j] == WHALE))
           {
             
           }

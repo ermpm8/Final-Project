@@ -25,7 +25,7 @@ killer_whale::killer_whale()
 
 
 
-void setPos(const short x, const short y)
+void killer_whale::setPos(const short x, const short y)
 {
 	m_x=x;
 	m_y=y;
