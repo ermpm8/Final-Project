@@ -11,7 +11,7 @@ class sea;
 #include "fish.h"
 
 const short LOWER_HEALTH = 60, UPPER_HEALTH = 81;
-const short MAX_HEALTH = 100;
+const short MAX_HEALTH = 100, MIN_HEALTH = 1;
 
 const short TIER1 = 81;
 const short TIER2 = 61;
@@ -43,6 +43,8 @@ class penguin
 		bool isAt(const short x, const short y);
     void setStatus(sea& s, const short x, const short y);
     void eat(const short x, const short y, sea& s);
+    void spawn(const short x, const short y, const short health);
+    short getHealth() const {return m_health;}
   private:
     void checkSurroundings(sea& s);
     short m_health;

@@ -21,8 +21,6 @@ void killer_whale::setPos(const short x, const short y)
 
 void killer_whale::move(sea &s)
 {
-
-	bool eaten = false;
 	short x_dif;
 	short y_dif;
 	int ctn=0;
@@ -33,6 +31,7 @@ void killer_whale::move(sea &s)
 		checkSurroundings(s);
 		do
 		{
+      
 			x_dif=m_x-m_penguin_x;
 			if (x_dif!=0)
 			{
@@ -50,7 +49,6 @@ void killer_whale::move(sea &s)
 				m_x+=x_dif;
 				m_y+=y_dif;
 				eat(m_x,m_y,s);
-        eaten = true;
 			}else if(s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
 			{
         m_x+=x_dif;
@@ -74,7 +72,7 @@ void killer_whale::move(sea &s)
         m_y-=y_dif;
       }			
 		  ctn++;
-		}while(ctn<WHALES_MOVE_CELLS && (!(eaten)));
+		}while(ctn<WHALES_MOVE_CELLS);
 	}
 	s.update(m_x, m_y, WHALE);
 	return;

@@ -259,3 +259,10 @@ bool penguin::isAt(const short x, const short y)
 { 
   return (m_x == x && m_y == y);
 }
+
+void penguin::spawn(const short x, const short y, const short health)
+{
+  setPos(x,y);
+  m_health = health/2;
+  return;
+}

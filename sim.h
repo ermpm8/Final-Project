@@ -58,6 +58,10 @@ const short NUM_WHALE = 2;
 //Number of killer whales
 const short HEALTH_LOSS = 1;
 
+const short MAX_ITERATIONS = 10000;
+
+const short PENG_SPAWN = 70;
+
 const short NUM_DIRS = 4;
 const short DIR[NUM_DIRS] = {-1,0,0,1};
 //values used to randomly assign the direction of movement

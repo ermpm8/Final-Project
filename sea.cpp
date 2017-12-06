@@ -207,13 +207,30 @@ void sea::updatePenguin(penguin penguins[NUM_PENG])
 
 void sea::killPenguin(const short x, const short y)
 {
+  static short g =0;
 	for (int i=0; i<NUM_PENG;i++)
 	{
 		if(m_penguins[i].isAt(x,y) && m_penguins[i].isAlive())
 		{
 			m_penguins[i].die();
+      cout<<g++<<endl;
 		}
 	}
 	return;
+}
+
+void sea::spawn(penguin& p)
+{
+  short rand_x, rand_y, rand_h;
+  
+  do
+    {
+      rand_x = rand() % m_size;
+      rand_y = rand() % m_size;  
+      rand_h = rand() % (MAX_HEALTH - MIN_HEALTH) + MIN_HEALTH;
+    }while(!(isEmpty(m_grid[rand_x][rand_y])));
+      m_grid[rand_x][rand_y] = PENG;
+      p.spawn(rand_x, rand_y,rand_h);
+  return;
 }
 	

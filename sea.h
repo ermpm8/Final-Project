@@ -33,6 +33,7 @@ class sea
     short killFish(const short x, const short y);
 		void updatePenguin(penguin penguins[NUM_PENG]);
 		void killPenguin(const short x, const short y);
+    void spawn(penguin& p);
   private:
     void clear();
     void populate(fish fishes[NUM_FISH], penguin penguins[NUM_PENG],
