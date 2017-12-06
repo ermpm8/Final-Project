@@ -196,3 +196,24 @@ short sea::killFish(const short x, const short y)
   return health;
 }
 
+void sea::updatePenguin(penguin penguins[NUM_PENG])
+{
+	for(int i=0;i<NUM_PENG;i++)
+	{
+		m_penguins[i] = penguins[i];
+	}
+	return;
+}
+
+void sea::killPenguin(const short x, const short y)
+{
+	for (int i=0; i<NUM_PENG;i++)
+	{
+		if(m_penguins[i].isAt(x,y) && m_penguins[i].isAlive())
+		{
+			m_penguins[i].die();
+		}
+	}
+	return;
+}
+	

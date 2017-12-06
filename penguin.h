@@ -40,6 +40,7 @@ class penguin
     void die();		
 		void setPos(const short x, const short y);
     bool isAlive() const;
+		bool isAt(const short x, const short y);
     void setStatus(sea& s, const short x, const short y);
     void eat(const short x, const short y, sea& s);
   private:

@@ -10,19 +10,24 @@ class sea;
 #include "sim.h"
 
 
-
+const short WHALES_MOVE_CELLS=3;
 
 class killer_whale
 {
   public:
     killer_whale();
-		bool move(sea& s);
+		void move(sea& s);
 		void setPos(const short x, const short y);
-		
+		void checkSurroundings(sea &s);
+		void updateKills();
+		void eat(const short x, const short y, sea& s);
   private:
     short m_kills;
 		short m_x;
 		short m_y;
+		short m_penguin_x;
+		short m_penguin_y;
+		bool m_feed;
 };
 
 

@@ -255,3 +255,8 @@ void penguin::eat(const short x, const short y, sea& s)
   m_health+= s.killFish(x,y);    
   return;
 }
+
+bool penguin::isAt(const short x, const short y)
+{ 
+  return (m_x == x && m_y == y);
+}
