@@ -59,8 +59,7 @@ void sea::populate(fish fishes[NUM_FISH], penguin penguins[NUM_PENG],
       rand_y = rand() % m_size;    
     }while(!(isEmpty(m_grid[rand_x][rand_y])));
       m_grid[rand_x][rand_y] = WHALE;
-      //whales[i].m_x = rand_x;
-      //whales[i].m_y = rand_y;
+      whales[i].setPos(rand_x,rand_y);
   }
   
   return;
@@ -102,23 +101,50 @@ bool sea::isEmpty(const char source) const
   return empty;
 }
 
-bool sea::isSurrounded(const short x, const short y) const
+bool sea::isSurrounded(const short x, const short y, sea& s) const
 {
   bool surr = true;
   
-  for (int i = 0; i< NUM_DIRS; i++)
+  if (s.isEmpty(s.getActor(x,y+1)))
   {
-    for (int j = 0; j< NUM_DIRS; j++)
-    {
-      if (DIR[i] && DIR[j] !=0)
-      {
-        if (isEmpty(m_grid[x+DIR[i]][y+DIR[j]]))
-        {
-          surr= false;
-        }
-      }      
-    }
+    surr = false;
   }
+  
+  if (s.isEmpty(s.getActor(x+1,y+1)))
+  {
+    surr = false;
+  }
+  
+  if (s.isEmpty(s.getActor(x+1,y)))
+  {
+    surr=false;
+  }
+  
+  if (s.isEmpty(s.getActor(x+1,y-1)))
+  {
+    surr=false;
+  }
+  
+  if (s.isEmpty(s.getActor(x,y-1)))
+  {
+    surr = false;
+  }
+  
+  if (s.isEmpty(s.getActor(x-1,y-1)))
+  {
+    surr = false;
+  }
+  
+  if (s.isEmpty(s.getActor(x-1,y)))
+  {
+    surr = false;
+  }
+  
+  if (s.isEmpty(s.getActor(x-1,y+1)))
+  {
+    surr = false;
+  }
+  
   return surr;  
 }
 
@@ -143,7 +169,29 @@ bool sea::validMove(const short x, const short y, sea& s) const
 bool sea::inBounds(const short x, const short y) const
 {
   bool inBounds = false;
-  inBounds = (x>0 && x<m_size)&&(y>0 && y<m_size);
+  inBounds = (x>=0 && x<m_size)&&(y>=0 && y<m_size);
   return inBounds;
+}
+
+void sea::updateFish(fish fishes[NUM_FISH])
+{
+  for (int i = 0; i<NUM_FISH;i++)
+  {
+    m_fishes[i] = fishes[i];    
+  }
+  return;
+}
+
+short sea::killFish(const short x, const short y)
+{
+  short health;
+  for (int i =0; i<NUM_FISH; i++)
+  {
+    if (m_fishes[i].isAt(x,y))
+    {
+      health = m_fishes[i].die();
+    }
+  }
+  return health;
 }
 

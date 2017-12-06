@@ -23,15 +23,13 @@ penguin::penguin()
   
 }
 
-bool penguin::move(sea& s)
+void penguin::move(sea& s)
 {
-  bool moved = false;
+  bool eaten = false;
   short x_dif;
   short y_dif;
-  short move_cells;
-  
-  char toMove;
-  
+  short move_cells;  
+  int ctn = 0;
   if(m_health>=TIER1)
   {
     move_cells = MOVE_TIER1;
@@ -50,62 +48,105 @@ bool penguin::move(sea& s)
   }else if(m_health<=TIER6)
   {
     move_cells = MOVE_TIER6;
-  }
+  }   
   
-  if (!(s.isSurrounded(m_x,m_y)))
+  if (!(s.isSurrounded(m_x,m_y,s)))
   {
     s.update(m_x, m_y, WHITESPACE);
     checkSurroundings(s);
-cout<<"Start : ("<<m_y<<","<<m_x<<")"<<endl;    
+
     if (m_run)
     {
       x_dif = m_x - m_whale_x;
-      x_dif = (x_dif<0) ? NEG : POS;
+      if (x_dif!=0)
+      {
+        x_dif = (x_dif<0) ? NEG : POS;
+      }
       
       y_dif = m_y - m_whale_y;
-      y_dif = (y_dif<0) ? NEG : POS;
       
-      toMove = s.getActor(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells));
-cout<<"Space to move: ["<<toMove<<"]"<<endl;      
-      
-      if (s.inBounds(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells))
-      && (s.isEmpty(toMove) || toMove==FISH))
+      if (y_dif!=0)
       {
-        m_x += (x_dif*move_cells);
-        m_y += (y_dif*move_cells);
-        moved = true;
-      }else if(s.inBounds(m_x + (x_dif*move_cells), m_y)
-      && (s.isEmpty(toMove) || toMove==FISH))
-      {
-        m_x += (x_dif*move_cells);
-        moved = true;
+        y_dif = (y_dif<0) ? NEG : POS;
       }
+      
+      do
+      {
+        if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
+        {
+          m_x+=x_dif;
+          m_y+=y_dif;
+        }else if(s.inBounds(m_x+x_dif,m_y) && s.isEmpty(s.getActor(m_x+x_dif,m_y)))
+        {
+          m_x+=x_dif;
+        }else if(s.inBounds(m_x,m_y+y_dif) && s.isEmpty(s.getActor(m_x,m_y+y_dif)))
+        {
+          m_y+=y_dif;
+        }else if(s.inBounds(m_x-x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
+        {
+          m_x-=x_dif;
+          m_y+=y_dif;
+        }//add the other directions
+        ctn++;
+      } while (ctn<move_cells);
     } else if (m_feed)
     {
+      
+      
+            
+      do
+      {       
       x_dif = m_x - m_fish_x;
-      x_dif = (x_dif<0) ? POS : NEG;
-      
-      y_dif = m_y - m_whale_y;
-      y_dif = (y_dif<0) ? POS : NEG;
-      
-      toMove = s.getActor(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells));
-
-      if (s.inBounds(m_x + (x_dif*move_cells), m_y + (y_dif*move_cells))
-      && (s.isEmpty(toMove) || toMove==FISH))
+      if (x_dif!=0)
       {
-cout<<"Space to move: ["<<toMove<<"]"<<"\t"<<(m_y + (y_dif*move_cells))<<","<<(m_x + (x_dif*move_cells)) <<endl;
-        m_x += (x_dif*move_cells);
-        m_y += (y_dif*move_cells);
-        moved = true;
+        x_dif = (x_dif<0) ? POS : NEG;
       }
+      
+      
+      
+      
+      y_dif = m_y - m_fish_y;
+      if (y_dif!=0)
+      {
+        y_dif = (y_dif<0) ? POS : NEG;
+      }
+      
+        if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.getActor(m_x+x_dif,m_y+y_dif)==FISH)
+        {
+          m_x+=x_dif;
+          m_y+=y_dif;
+          eat(m_x,m_y,s);
+          eaten = true;
+        }else if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
+        {
+          m_x+=x_dif;
+          m_y+=y_dif;
+        }else if(s.inBounds(m_x+x_dif,m_y) && s.isEmpty(s.getActor(m_x+x_dif,m_y)))
+        {
+          m_x+=x_dif;
+        }else if(s.inBounds(m_x,m_y+y_dif) && s.isEmpty(s.getActor(m_x,m_y+y_dif)))
+        {
+          m_y+=y_dif;
+        }else if(s.inBounds(m_x-x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
+        {
+          m_x-=x_dif;
+          m_y+=y_dif;
+        }else if(s.inBounds(m_x+x_dif,m_y-y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y-y_dif)))
+        {
+          m_x+=x_dif;
+          m_y-=y_dif;
+        }else if(s.inBounds(m_x,m_y-y_dif) && s.isEmpty(s.getActor(m_x,m_y-y_dif)))
+        {
+          m_y-=y_dif;
+        }
+        
+        ctn++;
+      } while(ctn<move_cells && (!(eaten)));
     }
-cout<<"Run : "<<m_whale_y<<","<<m_whale_x<<"\t"<<m_run<<endl;    
-cout<<"Feed : "<<m_fish_y<<","<<m_fish_x<<"\t"<<m_feed<<endl;    
-cout<<"Moved :"<<moved<<endl;    
-  
+    m_health-=HEALTH_LOSS;
   }
   s.update(m_x, m_y, PENG);
-cout<<"End : ("<<m_y<<","<<m_x<<")"<<endl;
+  return;
 }
 
 void penguin::die()
@@ -136,22 +177,76 @@ void penguin::checkSurroundings(sea& s)
   
   for (int k = 1; k<=PENGUIN_SIGHT; k++)
   {
-    //North
-    s.getActor(m_x,m_y+k)
+    //North    
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x-i,m_y-k);
+    }
     
     //Northeast
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x+k-i,m_y-k);
+    }
     
     //East
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x+k,m_y+i);
+    }
     
     //Southeast
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x+k,m_y+k+i);
+    }
     
     //South
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x+i,m_y+k);
+    }
     
     //Southwest
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x-k+i,m_y+k);
+    }
     
     //West
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x-k,m_y-i);
+    }
     
     //Northwest
+    for (int i = 0;i<k; i++)
+    {
+      setStatus(s,m_x-k,m_y-k-i);
+    }
   }    
+  return;
+}
+
+void penguin::setStatus(sea& s,const short x, const short y)
+{
+  char loc = s.getActor(x,y);
+  if (loc==WHALE && (!m_run))
+  {
+    m_run = true;
+    m_whale_x = x;
+    m_whale_y = y;
+  }else if (loc==FISH && (!m_feed))
+  {
+    m_feed = true;
+    m_fish_x = x;
+    m_fish_y = y;
+  }
+  return;
+}
+
+void penguin::eat(const short x, const short y, sea& s)
+{
+  m_health+= s.killFish(x,y);    
   return;
 }

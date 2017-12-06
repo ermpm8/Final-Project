@@ -8,6 +8,7 @@
 
 class sea;
 #include "sim.h"
+#include "fish.h"
 
 const short MIN_HEALTH = 60, MAX_HEALTH = 81;
 
@@ -34,11 +35,12 @@ class penguin
 {
   public:
     penguin();
-    bool move(sea& s);  
+    void move(sea& s);  
     void die();		
 		void setPos(const short x, const short y);
     bool isAlive() const;
-    
+    void setStatus(sea& s, const short x, const short y);
+    void eat(const short x, const short y, sea& s);
   private:
     void checkSurroundings(sea& s);
     short m_health;

@@ -56,6 +56,7 @@ const short START_PENG = 20;
 //Number of penguins to start the sim
 const short NUM_WHALE = 2;
 //Number of killer whales
+const short HEALTH_LOSS = 1;
 
 const short NUM_DIRS = 4;
 const short DIR[NUM_DIRS] = {-1,0,0,1};

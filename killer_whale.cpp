@@ -12,22 +12,9 @@ killer_whale::killer_whale()
 	m_x= DEAD_POS;
 	m_y= DEAD_POS;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 void killer_whale::setPos(const short x, const short y)
 {
-	m_x=x;
-	m_y=y;
-	return;
+  m_x = x;
+  m_y = y;
+  return;
 }

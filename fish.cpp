@@ -21,19 +21,19 @@ bool fish::move(sea& s)
   short y_dif;
 
   
-  if (!(s.isSurrounded(m_x,m_y))) 
+  if (!(s.isSurrounded(m_x,m_y,s))) 
   {
 		s.update(m_x, m_y, WHITESPACE);
     do
     {  
       x_dif = DIR[rand()%NUM_DIRS];
       y_dif = DIR[rand()%NUM_DIRS];
-			moved = s.validMove(m_x+x_dif,m_y+y_dif,s);     
+			moved = s.validMove(m_x+x_dif,m_y+y_dif,s);  
     }while((x_dif == 0 && y_dif == 0) || (!(moved)));    		
     m_x +=x_dif;
     m_y +=y_dif;
 		   
-    s.update(m_x, m_y, FISH);    
+    s.update(m_x, m_y, FISH);
     moved = true;
     
   }else
@@ -54,4 +54,18 @@ void fish::setPos(const short x, const short y)
 bool fish::isAlive() const
 {
   return m_alive;  
+}
+
+short fish::die()
+{
+  m_x = DEAD_POS;
+  m_y = DEAD_POS;
+  m_alive = false;
+  return m_food;
+}
+
+
+bool fish::isAt(const short x, const short y)
+{ 
+  return (m_x == x && m_y == y);
 }

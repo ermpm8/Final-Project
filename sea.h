@@ -23,18 +23,21 @@ class sea
     friend ostream& operator << (ostream& os, const sea& s);
     void setSize(const short size);
     bool isEmpty(const char source) const;
-    bool isSurrounded(const short x, const short y) const;
+    bool isSurrounded(const short x, const short y, sea& s) const;
     void update(const short x, const short y, const char actor);
     char getActor(const short x, const short y);
     short getSize() const {return m_size;}
     bool validMove(const short x, const short y, sea& s) const;
     bool inBounds(const short x, const short y) const;
+    void updateFish(fish fishes[NUM_FISH]);
+    short killFish(const short x, const short y);
   private:
     void clear();
     void populate(fish fishes[NUM_FISH], penguin penguins[NUM_PENG],
                   killer_whale whales[NUM_WHALE]);    
     char m_grid[MAX][MAX];
     short m_size;
+    fish m_fishes[NUM_FISH];
 };
 
 #endif
