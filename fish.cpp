@@ -69,3 +69,9 @@ bool fish::isAt(const short x, const short y)
 { 
   return (m_x == x && m_y == y);
 }
+
+void fish::spawn(const short x, const short y)
+{
+  setPos(x,y);
+  return;
+}

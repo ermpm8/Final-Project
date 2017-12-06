@@ -8,19 +8,28 @@
 
 class sea;
 #include "sim.h"
+#include "penguin.h"
+
 
 
 const short WHALES_MOVE_CELLS=3;
+const short MAX_CHECKS = 1000;
+
+//The killer_whale() is the default constructor
+//Pre: none.
+//Post: Creates a killer_whale
+
+
 
 class killer_whale
 {
   public:
     killer_whale();
-		void move(sea& s);
+		void move(sea& s, penguin penguins[NUM_PENG]);
 		void setPos(const short x, const short y);
 		void checkSurroundings(sea &s);
 		void updateKills();
-		void eat(const short x, const short y, sea& s);
+		void eat(const short x, const short y, sea& s, penguin penguins[NUM_PENG]);
     short getKills() const;
   private:
     short m_kills;

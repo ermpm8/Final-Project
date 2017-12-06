@@ -56,18 +56,19 @@ const short START_PENG = 20;
 //Number of penguins to start the sim
 const short NUM_WHALE = 2;
 //Number of killer whales
-const short HEALTH_LOSS = 1;
 
 const short MAX_ITERATIONS = 10000;
+//the maximum iterations of the sim
 
 const short PENG_SPAWN = 70;
+//the health required for a new penguin to spawn
 
 const short NUM_DIRS = 4;
+//number of directions in the dir array
 const short DIR[NUM_DIRS] = {-1,0,0,1};
 //values used to randomly assign the direction of movement
 
-
-
+//used to get the direction of movement
 const short NEG = -1;
 const short POS = 1;
 
@@ -75,6 +76,10 @@ const short POS = 1;
 const short DEAD_POS = -1;
 //position of dead actors
 
+
+/*----******************SPAWN_RATE************************----*/
+const short FISH_SPAWN_RATE = 5;
+//Determines the number of time units between each fish spawn
 
 
 

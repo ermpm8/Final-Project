@@ -40,7 +40,6 @@ void sea::populate(fish fishes[NUM_FISH], penguin penguins[NUM_PENG],
       m_grid[rand_x][rand_y] = FISH;
       fishes[i].setPos(rand_x, rand_y);    
   }
-  updateFish(fishes);
   
   for (int i = 0; i<START_PENG; i++)
   {
@@ -174,46 +173,27 @@ bool sea::inBounds(const short x, const short y) const
   return inBounds;
 }
 
-void sea::updateFish(fish fishes[NUM_FISH])
-{
-  for (int i = 0; i<NUM_FISH;i++)
-  {
-    m_fishes[i] = fishes[i];    
-  }
-  return;
-}
 
-short sea::killFish(const short x, const short y)
+short sea::killFish(const short x, const short y, fish fishes[NUM_FISH])
 {
   short health = -100;
   for (int i =0; i<NUM_FISH; i++)
   {
-    if (m_fishes[i].isAt(x,y) && m_fishes[i].isAlive())
+    if (fishes[i].isAt(x,y) && fishes[i].isAlive())
     {
-      health = m_fishes[i].die();
+      health = fishes[i].die();
     }
   }
   return health;
 }
 
-void sea::updatePenguin(penguin penguins[NUM_PENG])
+void sea::killPenguin(const short x, const short y, penguin penguins[NUM_PENG])
 {
-	for(int i=0;i<NUM_PENG;i++)
-	{
-		m_penguins[i] = penguins[i];
-	}
-	return;
-}
-
-void sea::killPenguin(const short x, const short y)
-{
-  static short g =0;
 	for (int i=0; i<NUM_PENG;i++)
 	{
-		if(m_penguins[i].isAt(x,y) && m_penguins[i].isAlive())
+		if(penguins[i].isAt(x,y) && penguins[i].isAlive())
 		{
-			m_penguins[i].die();
-      cout<<g++<<endl;
+			penguins[i].die();
 		}
 	}
 	return;
@@ -222,7 +202,6 @@ void sea::killPenguin(const short x, const short y)
 void sea::spawn(penguin& p)
 {
   short rand_x, rand_y, rand_h;
-  
   do
     {
       rand_x = rand() % m_size;
@@ -232,5 +211,44 @@ void sea::spawn(penguin& p)
       m_grid[rand_x][rand_y] = PENG;
       p.spawn(rand_x, rand_y,rand_h);
   return;
+}
+
+void sea::spawn(fish& f)
+{
+  short rand_x, rand_y;
+  do
+  {
+    rand_x = rand() % m_size;
+    rand_y = rand() % m_size;  
+  }while(!(isEmpty(m_grid[rand_x][rand_y])));
+      m_grid[rand_x][rand_y] = FISH;
+      f.spawn(rand_x, rand_y);
+  return;
+}
+
+short sea::getLiving(fish fishes[NUM_FISH]) const
+{
+  short living = 0;
+  for (int i = 0; i< NUM_FISH; i++)
+  {
+    if (fishes[i].isAlive())
+    {
+      living++;
+    }
+  }
+  return living;
+}
+
+short sea::getLiving(penguin penguins[NUM_PENG]) const
+{
+  short living = 0;
+  for (int i = 0; i< NUM_PENG; i++)
+  {
+    if (penguins[i].isAlive())
+    {
+      living++;
+    }
+  }
+  return living;
 }
 	

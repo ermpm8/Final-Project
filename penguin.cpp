@@ -5,6 +5,7 @@
 
 #include "penguin.h"
 #include "sea.h"
+#include <cmath>
 
 penguin::penguin()
 {
@@ -23,14 +24,14 @@ penguin::penguin()
   
 }
 
-void penguin::move(sea& s)
+void penguin::move(sea& s, fish fishes[NUM_FISH])
 {
   bool eaten = false;
   short x_dif;
   short y_dif;
   short move_cells;  
   int ctn = 0;
-  if (m_health>=100)
+  if (m_health>=MAX_HEALTH)
   {
     m_health = MAX_HEALTH;
   }
@@ -76,28 +77,30 @@ void penguin::move(sea& s)
         {
           y_dif = (y_dif<0) ? NEG : POS;
         }
-        if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
+        if (s.inBounds(m_x+x_dif,m_y+y_dif) &&
+        s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
         {
           m_x+=x_dif;
           m_y+=y_dif;
-        }else if(s.inBounds(m_x+x_dif,m_y) && s.isEmpty(s.getActor(m_x+x_dif,m_y)))
+        }else if(s.inBounds(m_x+x_dif,m_y) &&
+        s.isEmpty(s.getActor(m_x+x_dif,m_y)))
         {
           m_x+=x_dif;
-        }else if(s.inBounds(m_x,m_y+y_dif) && s.isEmpty(s.getActor(m_x,m_y+y_dif)))
+        }else if(s.inBounds(m_x,m_y+y_dif) &&
+        s.isEmpty(s.getActor(m_x,m_y+y_dif)))
         {
           m_y+=y_dif;
-        }else if(s.inBounds(m_x-x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
+        }else if(s.inBounds(m_x-x_dif,m_y+y_dif) && 
+        s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
         {
           m_x-=x_dif;
           m_y+=y_dif;
-        }//add the other directions
+        }
         ctn++;
       } while (ctn<move_cells);
     } else if (m_feed)
     {
-      
-      
-            
+     
       do
       {       
       x_dif = m_x - m_fish_x;
@@ -106,40 +109,44 @@ void penguin::move(sea& s)
         x_dif = (x_dif<0) ? POS : NEG;
       }
       
-      
-      
-      
       y_dif = m_y - m_fish_y;
       if (y_dif!=0)
       {
         y_dif = (y_dif<0) ? POS : NEG;
       }
       
-        if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.getActor(m_x+x_dif,m_y+y_dif)==FISH)
+        if (s.inBounds(m_x+x_dif,m_y+y_dif) &&
+        s.getActor(m_x+x_dif,m_y+y_dif)==FISH)
         {
           m_x+=x_dif;
           m_y+=y_dif;
-          eat(m_x,m_y,s);
+          eat(m_x,m_y,s,fishes);
           eaten = true;
-        }else if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
+        }else if (s.inBounds(m_x+x_dif,m_y+y_dif) &&
+        s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
         {
           m_x+=x_dif;
           m_y+=y_dif;
-        }else if(s.inBounds(m_x+x_dif,m_y) && s.isEmpty(s.getActor(m_x+x_dif,m_y)))
+        }else if(s.inBounds(m_x+x_dif,m_y) &&
+        s.isEmpty(s.getActor(m_x+x_dif,m_y)))
         {
           m_x+=x_dif;
-        }else if(s.inBounds(m_x,m_y+y_dif) && s.isEmpty(s.getActor(m_x,m_y+y_dif)))
+        }else if(s.inBounds(m_x,m_y+y_dif) &&
+        s.isEmpty(s.getActor(m_x,m_y+y_dif)))
         {
           m_y+=y_dif;
-        }else if(s.inBounds(m_x-x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
+        }else if(s.inBounds(m_x-x_dif,m_y+y_dif) &&
+        s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
         {
           m_x-=x_dif;
           m_y+=y_dif;
-        }else if(s.inBounds(m_x+x_dif,m_y-y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y-y_dif)))
+        }else if(s.inBounds(m_x+x_dif,m_y-y_dif) &&
+        s.isEmpty(s.getActor(m_x+x_dif,m_y-y_dif)))
         {
           m_x+=x_dif;
           m_y-=y_dif;
-        }else if(s.inBounds(m_x,m_y-y_dif) && s.isEmpty(s.getActor(m_x,m_y-y_dif)))
+        }else if(s.inBounds(m_x,m_y-y_dif) &&
+        s.isEmpty(s.getActor(m_x,m_y-y_dif)))
         {
           m_y-=y_dif;
         }
@@ -228,7 +235,20 @@ void penguin::checkSurroundings(sea& s)
     {
       setStatus(s,m_x-k,m_y-k-i);
     }
-  }    
+  }  
+  if (m_run && m_feed)
+  {
+    if (distance(m_x,m_y,m_whale_x,m_whale_y)<
+      distance(m_x,m_y,m_fish_x,m_fish_y))
+    {
+      m_feed = false;
+    }else
+    {
+      m_run = false;
+    }
+  }
+  
+  
   return;
 }
 
@@ -249,13 +269,13 @@ void penguin::setStatus(sea& s,const short x, const short y)
   return;
 }
 
-void penguin::eat(const short x, const short y, sea& s)
+void penguin::eat(const short x, const short y, sea& s, fish fishes[NUM_FISH])
 {
-  m_health+= s.killFish(x,y);    
+  m_health+= s.killFish(x,y,fishes);    
   return;
 }
 
-bool penguin::isAt(const short x, const short y)
+bool penguin::isAt(const short x, const short y) const
 { 
   return (m_x == x && m_y == y);
 }
@@ -266,3 +286,9 @@ void penguin::spawn(const short x, const short y, const short health)
   m_health = health/2;
   return;
 }
+
+float penguin::distance(const short x1, const short y1, const short x2,
+                        const short y2)
+{
+  return sqrt(pow(x2-x1,2) + pow(y2-y1,2));
+}                        
