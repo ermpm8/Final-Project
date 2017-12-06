@@ -10,7 +10,8 @@ class sea;
 #include "sim.h"
 #include "fish.h"
 
-const short MIN_HEALTH = 60, MAX_HEALTH = 81;
+const short LOWER_HEALTH = 60, UPPER_HEALTH = 81;
+const short MAX_HEALTH = 100;
 
 const short TIER1 = 81;
 const short TIER2 = 61;

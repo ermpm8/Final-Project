@@ -9,6 +9,9 @@
 class sea;
 #include "sim.h"
 
+
+
+
 class killer_whale
 {
   public:

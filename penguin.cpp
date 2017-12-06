@@ -8,7 +8,7 @@
 
 penguin::penguin()
 {
-  m_health = rand() % (MAX_HEALTH - MIN_HEALTH) + MIN_HEALTH;
+  m_health = rand() % (UPPER_HEALTH - LOWER_HEALTH) + LOWER_HEALTH;
   m_x = DEAD_POS;
   m_y = DEAD_POS;
   m_alive = false;
@@ -31,6 +31,11 @@ cout<<m_health<<endl;
   short y_dif;
   short move_cells;  
   int ctn = 0;
+  if (m_health>=100)
+  {
+    m_health = MAX_HEALTH;
+  }
+  
   if(m_health>=TIER1)
   {
     move_cells = MOVE_TIER1;
@@ -117,7 +122,6 @@ cout<<m_health<<endl;
           m_x+=x_dif;
           m_y+=y_dif;
           eat(m_x,m_y,s);
-cout<<m_y<<","<<m_x<<endl;
           eaten = true;
         }else if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
         {
@@ -249,7 +253,6 @@ void penguin::setStatus(sea& s,const short x, const short y)
 
 void penguin::eat(const short x, const short y, sea& s)
 {
-cout<<"Poison: "<<s.killFish(x,y)<<endl;  
   m_health+= s.killFish(x,y);    
   return;
 }
