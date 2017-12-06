@@ -21,6 +21,7 @@ class killer_whale
 		void checkSurroundings(sea &s);
 		void updateKills();
 		void eat(const short x, const short y, sea& s);
+    short getKills() const;
   private:
     short m_kills;
 		short m_x;

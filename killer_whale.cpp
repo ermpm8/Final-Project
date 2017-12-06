@@ -21,6 +21,7 @@ void killer_whale::setPos(const short x, const short y)
 
 void killer_whale::move(sea &s)
 {
+
 	bool eaten = false;
 	short x_dif;
 	short y_dif;
@@ -30,7 +31,6 @@ void killer_whale::move(sea &s)
 	{
 		s.update(m_x, m_y, WHITESPACE);
 		checkSurroundings(s);
-		
 		do
 		{
 			x_dif=m_x-m_penguin_x;
@@ -53,28 +53,27 @@ void killer_whale::move(sea &s)
         eaten = true;
 			}else if(s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
 			{
-          m_x+=x_dif;
-          m_y+=y_dif;
-        }else if(s.inBounds(m_x+x_dif,m_y) && s.isEmpty(s.getActor(m_x+x_dif,m_y)))
-        {
-          m_x+=x_dif;
-        }else if(s.inBounds(m_x,m_y+y_dif) && s.isEmpty(s.getActor(m_x,m_y+y_dif)))
-        {
-          m_y+=y_dif;
-        }else if(s.inBounds(m_x-x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
-        {
-          m_x-=x_dif;
-          m_y+=y_dif;
-        }else if(s.inBounds(m_x+x_dif,m_y-y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y-y_dif)))
-        {
-          m_x+=x_dif;
-          m_y-=y_dif;
-        }else if(s.inBounds(m_x,m_y-y_dif) && s.isEmpty(s.getActor(m_x,m_y-y_dif)))
-        {
-          m_y-=y_dif;
-        }
-				
-				ctn++;
+        m_x+=x_dif;
+        m_y+=y_dif;
+      }else if(s.inBounds(m_x+x_dif,m_y) && s.isEmpty(s.getActor(m_x+x_dif,m_y)))
+      {
+        m_x+=x_dif;
+      }else if(s.inBounds(m_x,m_y+y_dif) && s.isEmpty(s.getActor(m_x,m_y+y_dif)))
+      {
+        m_y+=y_dif;
+      }else if(s.inBounds(m_x-x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x-x_dif,m_y+y_dif)))
+      {
+        m_x-=x_dif;
+        m_y+=y_dif;
+      }else if(s.inBounds(m_x+x_dif,m_y-y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y-y_dif)))
+      {
+        m_x+=x_dif;
+        m_y-=y_dif;
+      }else if(s.inBounds(m_x,m_y-y_dif) && s.isEmpty(s.getActor(m_x,m_y-y_dif)))
+      {
+        m_y-=y_dif;
+      }			
+		  ctn++;
 		}while(ctn<WHALES_MOVE_CELLS && (!(eaten)));
 	}
 	s.update(m_x, m_y, WHALE);
@@ -95,12 +94,15 @@ void killer_whale::checkSurroundings(sea& s)
 	short k=1;
 	while(!(penguinFound))
 	{
+    
 		//North
 		for(int i=0;i<k;i++)
 		{
 			if(s.getActor(m_x-i,m_y-k)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x-i;
+        m_penguin_y = m_y-k;
 			}
 		}
 		
@@ -110,6 +112,8 @@ void killer_whale::checkSurroundings(sea& s)
 			if(s.getActor(m_x+k,m_y-k)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x+k;
+        m_penguin_y = m_y-k;
 			}
 		}
 		
@@ -119,6 +123,8 @@ void killer_whale::checkSurroundings(sea& s)
 			if(s.getActor(m_x+k,m_y+i)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x+k;
+        m_penguin_y = m_y+i;
 			}
 		}
 		
@@ -128,6 +134,8 @@ void killer_whale::checkSurroundings(sea& s)
 			if(s.getActor(m_x+k,m_y+k+i)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x+k;
+        m_penguin_y = m_y+k+i;
 			}
 		}
 		
@@ -137,6 +145,8 @@ void killer_whale::checkSurroundings(sea& s)
 			if(s.getActor(m_x+i,m_y+k+i)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x+i;
+        m_penguin_y = m_y+k+i;
 			}
 		}
 		
@@ -146,6 +156,8 @@ void killer_whale::checkSurroundings(sea& s)
 			if(s.getActor(m_x-k+i,m_y+k)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x-k+i;
+        m_penguin_y = m_y+k+k;
 			}
 		}
 		
@@ -155,6 +167,8 @@ void killer_whale::checkSurroundings(sea& s)
 			if(s.getActor(m_x-k,m_y-k-i)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x-k;
+        m_penguin_y = m_y-k-i;
 			}
 		}
 		
@@ -164,9 +178,13 @@ void killer_whale::checkSurroundings(sea& s)
 			if(s.getActor(m_x-k,m_y-k-i)==PENG)
 			{
 				penguinFound=true;
+        m_penguin_x = m_x-k;
+        m_penguin_y = m_y-k-i;
 			}
 		}
+    k++;
 	}
+  
   return;
 }
 
@@ -174,4 +192,10 @@ void killer_whale::updateKills()
 {
 	m_kills+=1;
 	return;
+}
+
+
+short killer_whale::getKills() const
+{
+  return m_kills;
 }

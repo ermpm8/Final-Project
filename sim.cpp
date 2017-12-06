@@ -40,21 +40,26 @@ int main()
         fishes[f].move(the_sea);        
       }     
     }		
+    
     the_sea.updateFish(fishes);
     for (int p = 0; p<NUM_PENG; p++)
     {
       if (penguins[p].isAlive())
       {
         penguins[p].move(the_sea);
-        cout<<the_sea;
-        usleep(200000);
       }
-      
     }
+    for (int w = 0; w<NUM_WHALE; w++)
+    {
+      whales[w].move(the_sea);
+    }
+    
     cout<<the_sea;
-    //usleep(10000);
+    usleep(200000);
     	
   }
+  cout<<whales[0].getKills()<<endl;
+  cout<<whales[1].getKills()<<endl;
  
   return 0;
 }

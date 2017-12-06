@@ -25,7 +25,6 @@ penguin::penguin()
 
 void penguin::move(sea& s)
 {
-cout<<m_health<<endl;
   bool eaten = false;
   short x_dif;
   short y_dif;
