@@ -27,10 +27,13 @@ int main()
   cout<<the_sea;
   //display the grid
   
-  //penguins[0].move(the_sea);
+  penguins[0].move(the_sea); 
+  penguins[0].move(the_sea);
   
- 
-  for (int i = 0; i<15; i++)
+  cout<<the_sea;
+  
+ /*
+  for (int i = 0; i<100000; i++)
   {
     for (int f = 0; f<NUM_FISH; f++)
     {
@@ -49,9 +52,9 @@ int main()
       
     }
     cout<<the_sea;
-    usleep(200000);
+    usleep(10000);
     	
   }
- 
+ */
   return 0;
 }

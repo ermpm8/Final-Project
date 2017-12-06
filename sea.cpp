@@ -184,10 +184,10 @@ void sea::updateFish(fish fishes[NUM_FISH])
 
 short sea::killFish(const short x, const short y)
 {
-  short health;
+  short health = -100;
   for (int i =0; i<NUM_FISH; i++)
   {
-    if (m_fishes[i].isAt(x,y))
+    if (m_fishes[i].isAt(x,y) && m_fishes[i].isAlive())
     {
       health = m_fishes[i].die();
     }

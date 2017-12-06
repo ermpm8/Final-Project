@@ -25,6 +25,7 @@ penguin::penguin()
 
 void penguin::move(sea& s)
 {
+cout<<m_health<<endl;
   bool eaten = false;
   short x_dif;
   short y_dif;
@@ -116,6 +117,7 @@ void penguin::move(sea& s)
           m_x+=x_dif;
           m_y+=y_dif;
           eat(m_x,m_y,s);
+cout<<m_y<<","<<m_x<<endl;
           eaten = true;
         }else if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
         {
@@ -247,6 +249,7 @@ void penguin::setStatus(sea& s,const short x, const short y)
 
 void penguin::eat(const short x, const short y, sea& s)
 {
+cout<<"Poison: "<<s.killFish(x,y)<<endl;  
   m_health+= s.killFish(x,y);    
   return;
 }
