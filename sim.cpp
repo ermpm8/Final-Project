@@ -47,7 +47,7 @@ int main()
       {
         penguins[p].move(the_sea);
         cout<<the_sea;
-        usleep(200000);
+        //usleep(200000);
       }
       
     }

@@ -62,22 +62,21 @@ cout<<m_health<<endl;
     checkSurroundings(s);
 
     if (m_run)
-    {
-      x_dif = m_x - m_whale_x;
-      if (x_dif!=0)
-      {
-        x_dif = (x_dif<0) ? NEG : POS;
-      }
-      
-      y_dif = m_y - m_whale_y;
-      
-      if (y_dif!=0)
-      {
-        y_dif = (y_dif<0) ? NEG : POS;
-      }
-      
+    { 
       do
       {
+        x_dif = m_x - m_whale_x;
+        if (x_dif!=0)
+        {
+          x_dif = (x_dif<0) ? NEG : POS;
+        }
+        
+        y_dif = m_y - m_whale_y;
+        
+        if (y_dif!=0)
+        {
+          y_dif = (y_dif<0) ? NEG : POS;
+        }
         if (s.inBounds(m_x+x_dif,m_y+y_dif) && s.isEmpty(s.getActor(m_x+x_dif,m_y+y_dif)))
         {
           m_x+=x_dif;
